@@ -709,7 +709,7 @@ public class KafkaProducer<K, V> implements Producer<K, V> {
     // 发送消息，将消息放入RecordAccumulator暂存
     public Future<RecordMetadata> send(ProducerRecord<K, V> record, Callback callback) {
         // intercept the record, which can be potentially modified; this method does not throw exceptions
-        //如果有自定义拦截器，则执行其doSend方法，拿到所有拦截器，并执行
+        //如果有自定义拦截器，则执行其onSend方法，拿到所有拦截器，并执行
         ProducerRecord<K, V> interceptedRecord = this.interceptors == null ? record : this.interceptors.onSend(record);
         return doSend(interceptedRecord, callback);
     }
